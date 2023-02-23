@@ -9,7 +9,7 @@ const taskSchema = mongoose.Schema(
         timer: { type: Number, isRequired: true, default: 0 },
         status: { type: String, isRequired: true, default: "new" },
         initialTime: { type: Date, default: Date.now },
-        endTime: { type: Number, isRequired: true, default: 0 }
+        endTime: { type: Number, default: Date.now }
     }
 )
 

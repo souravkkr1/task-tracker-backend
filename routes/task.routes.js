@@ -3,8 +3,8 @@ const taskRouter = express.Router();
 const { TaskModel } = require("../models/task.model");
 
 taskRouter.get("/", async (req, res) => {
-    // const user = req.body.userID;
-    // const project = req.body.projectID;
+    const user = req.body.userID;
+    const project = req.body.projectID;
     try {
         const tasks = await TaskModel.find()
         // const tasks = await TaskModel.find({ user, project }).populate("task");

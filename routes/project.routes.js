@@ -3,9 +3,9 @@ const projectRouter = express.Router();
 const { ProjectModel } = require("../models/project.model")
 
 projectRouter.get("/", async (req, res) => {
-    // const user = req.body.userID
+    const user = req.body.userID
     try {
-        const data = await ProjectModel.find();
+        const data = await ProjectModel.find({ user }).populate("project");
         res.json(data);
     } catch (err) {
         console.log(err);
@@ -17,9 +17,9 @@ projectRouter.get("/", async (req, res) => {
 
 projectRouter.post("/create", async (req, res) => {
     const user = req.body.userID
-    const { name, desc } = req.body;
+    const { name, desc, colour } = req.body;
     try {
-        const newProject = new ProjectModel({ name, desc, user });
+        const newProject = new ProjectModel({ name, desc, user, colour });
         await newProject.save();
         res.send("Project created successfully")
     } catch (err) {
