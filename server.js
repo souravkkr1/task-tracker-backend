@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors")
 const { connection } = require("./config/db")
 const { userRouter } = require("./routes/user.routes")
-const { requireLogIn, requireLogin } = require("./middlewares/validator")
+const {requireLogin } = require("./middlewares/validator")
 const { projectRouter } = require("./routes/project.routes")
 const { taskRouter } = require("./routes/task.routes")
 require("dotenv").config();
