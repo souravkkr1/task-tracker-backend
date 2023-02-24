@@ -18,6 +18,19 @@ userRouter.get("/", async (req, res) => {
     }
 })
 
+// Get all tasks by User Id
+
+userRouter.get("/:id", async (req, res) => {
+    const userID = req.body.userID;
+    try {
+        const user = await UserModel.find({ _id: userID })
+        res.json(user);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ "msg": "Something went wrong" })
+    }
+})
+
 // User Registration: POST
 
 userRouter.post("/register", async (req, res) => {
