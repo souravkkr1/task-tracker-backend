@@ -2,11 +2,14 @@ const express = require("express");
 const projectRouter = express.Router();
 const { ProjectModel } = require("../models/project.model")
 
+// Get all projects
+
 projectRouter.get("/", async (req, res) => {
     const user = req.body.userID
     try {
-        const data = await ProjectModel.find({ user }).populate("project");
-        res.json(data);
+        const data = await ProjectModel.find({ user })
+        console.log(data);
+        res.json("sent");
     } catch (err) {
         console.log(err);
         res.status(500).json({ "msg": "Something went wrong" })
@@ -14,6 +17,22 @@ projectRouter.get("/", async (req, res) => {
 
 })
 
+// Get projects by projectID
+
+projectRouter.get("/:id", async (req, res) => {
+    const { projectID } = req.params;
+    try {
+        const data = await ProjectModel.find({ _id: projectID })
+        console.log(data);
+        res.json("sent");
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ "msg": "Something went wrong" })
+    }
+
+})
+
+// Create new project
 
 projectRouter.post("/create", async (req, res) => {
     const user = req.body.userID

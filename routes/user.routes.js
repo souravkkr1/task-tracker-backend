@@ -39,7 +39,6 @@ userRouter.post("/register", async (req, res) => {
 
 })
 
-
 // User Login: POST
 
 userRouter.post("/login", async (req, res) => {
@@ -59,12 +58,10 @@ userRouter.post("/login", async (req, res) => {
                 }
             });
         }
-
     } catch (err) {
         console.log(err);
         res.status(500).json({ "msg": "Something went wrong" })
     }
-
 })
 
 module.exports = {

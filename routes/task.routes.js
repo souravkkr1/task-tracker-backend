@@ -2,11 +2,13 @@ const express = require("express");
 const taskRouter = express.Router();
 const { TaskModel } = require("../models/task.model");
 
+// Get all tasks by Project Id
+
 taskRouter.get("/", async (req, res) => {
     const user = req.body.userID;
     const project = req.body.projectID;
     try {
-        const tasks = await TaskModel.find()
+        const tasks = await TaskModel.find({ user, project })
         // const tasks = await TaskModel.find({ user, project }).populate("task");
         res.json(tasks);
     } catch (err) {
@@ -15,6 +17,21 @@ taskRouter.get("/", async (req, res) => {
     }
 })
 
+// Get all tasks of a user
+
+taskRouter.get("/alltasks", async (req, res) => {
+    const user = req.body.userID;
+    try {
+        const tasks = await TaskModel.find({ user })
+        // const tasks = await TaskModel.find({ user, project }).populate("task");
+        res.json(tasks);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ "msg": "Something went wrong" })
+    }
+})
+
+// Add  new task
 
 taskRouter.post("/add", async (req, res) => {
     const user = req.body.userID
@@ -30,7 +47,7 @@ taskRouter.post("/add", async (req, res) => {
     }
 })
 
-// Update project by id
+// Update task by id
 
 taskRouter.patch('/:id', async (req, res) => {
     const payload = req.body;
@@ -45,7 +62,7 @@ taskRouter.patch('/:id', async (req, res) => {
     }
 });
 
-// Delete project by id
+// Delete task by id
 
 taskRouter.delete('/:id', async (req, res) => {
     const { id } = req.params;
